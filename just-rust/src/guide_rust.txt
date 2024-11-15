@@ -1,0 +1,13 @@
+In Rust, Option is an enum in the standard library
+enum Option<T> {
+    Some(T),
+    None,
+}
+// Some(T): enum variants of Option.
+-------------------
+The definition of this generic enum in the standard library is:
+ enum Result<T, E> {
+ Ok(T),
+ Err(E),
+ }
+//Ok and Err are variants of the Result enum

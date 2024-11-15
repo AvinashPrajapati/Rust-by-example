@@ -136,16 +136,18 @@ fn main() {
     // let a = &&&7;
     // print!("{} {} {} {}", ***a, **a, *a, a);
 
-    // .......is there any way to mutate the originsl variable
-    let mut a: i32 = 10;
-    let mut b: i32 = 20;
-    let mut p: &mut i32 = &mut a; // line 3  declared p as mutable variable
-    print!("{} ", *p);  // ---> to a
-    *p += 1; // line 5 updated the a
-    print!("{} ", *p);
+    // // .......is there any way to mutate the originsl variable
+    // let mut a: i32 = 10;
+    // let mut b: i32 = 20;
+    // let mut p: &mut i32 = &mut a; // line 3  declared p as mutable variable
+    // print!("{} ", *p);  // ---> to a
+    // *p += 1; // line 5 updated the a
+    // print!("{} ", *p);
 
-    p = &mut b; // line 7
-    print!("{} ", *p);
-    *p += 1; // line 9
-    print!("{} ", *p);
+    // p = &mut b; // line 7
+    // print!("{} ", *p);
+    // *p += 1; // line 9
+    // print!("{} ", *p);
+
+    
 }
