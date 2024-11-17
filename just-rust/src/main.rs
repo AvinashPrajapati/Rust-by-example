@@ -1,70 +1,59 @@
 fn main() {
-    //     print!("{} ", std::mem::size_of::<i64>());
-    //  print!("{} ", std::mem::size_of_val(&12));
-    // // ----------
-    //  use std::mem;
-    //  print!("{} ", mem::size_of::<i32>());
-    //  print!("{} ", mem::size_of_val(&12));
-    // //  or in this one:
-    //  use std::mem::size_of;
-    //  use std::mem::size_of_val;
-    //  print!("{} ", size_of::<i32>());
-    //  print!("{} ", size_of_val(&12));
-    // // --------
+    // // Range
+    // for i in 0..12 { print!("{} ,", i); }
 
-    // // There is an even more compact form of it:
-    //  use std::mem::*;
-    //  print!("{} ", size_of::<i32>());
-    //  print!("{} ", size_of_val(&12));
-
-    // // // ---------
-    // use std::mem::*;
-    //  print!("{} {} {} {}",
-    //  size_of::<isize>(),
-    //  size_of::<usize>(),
-    //  size_of::<&i8>(),
-    //  size_of::<&u32>());
-
-    // //  MOST IMPORTANT ONE
-    // fn as_bytes<T>(o: &T) -> &[u8] {
-    //     unsafe { std::slice::from_raw_parts(o as *const _ as *const u8, std::mem::size_of::<T>()) }  // you can remove _ as T
+    // // ---- another possible way to write it:
+    // let dozen = 0..12; // Range
+    // for i in dozen {
+    //     println!("{}", i);
     // }
-    // println!("{:?}", as_bytes(&1i8));
-    // println!("{:?}", as_bytes(&2i16));
-    // println!("{:?}", as_bytes(&3i32));
-    // println!("{:?}", as_bytes(&(4i64 + 5 * 256 + 6 * 256 * 256))); // its explsnation
-    /*
-    394500 in binary (64 bits) is:
-    00000000 00000000 00000000 00000000 00000000 00000110 00000101 00000100
 
-    In little-endian order, the least significant byte comes first:
-    [4, 5, 6, 0, 0, 0, 0, 0]
+    // // some more code using range
+    // let range: std::ops::Range<usize> = 3..8;
+    // println!(
+    //     "{:?}, {}, {}, {}",
+    //     range,
+    //     range.start,
+    //     range.end,
+    //     range.len()
+    // );
+    // for i in range {
+    //     print!("{}, ", i);
+    // }
 
-    Do you get it??
-     */
+    // // ---- Nonsense but true but cannot be used in a for loop.
+    // let _r1 = false..true;
+    // let _r2 = "hello".."world";
+    // let _r3 = 4.2..7.9;
 
-    // --------------
-    // println!("{:?}", as_bytes(&'A'));
-    // println!("{:?}", as_bytes(&true));
-    // println!("{:?}", as_bytes(&&1i8));  // for this
-    /*
-    as_bytes(&&1i8)
-    If the address of &1i8 is 0x5678, its 64-bit representation (in hexadecimal) is:
-    0x0000000000005678
+    // // --------- passing a sequence to a function
+    // fn min(arr: [i32; 8]) -> i32 {
+    //     // LIMITAIONS
+    //     // 1. It gets as argument a copy of the whole array, requiring a significant time to transfer it, and occupying a significant stack space and cache space
+    //     // 2. it can receive only 8-number arrays or cannot receive a vector as argument.
+    //     let mut minimum = arr[0];
+    //     for i in 1..arr.len() {
+    //         if arr[i] < minimum {
+    //             minimum = arr[i];
+    //         }
+    //     }
+    //     minimum
+    // }
+    // print!("{}", min([23, 17, 12, 16, 15, 28, 17, 30]));
 
-    In memory (little-endian):
-    [0x78, 0x56, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
-     */
-
-
-    // more examples
-
-    // ------- You can also discover the (virtual) memory location of any object, which is its address:
-    let b1 = true;
-    let b2 = true;
-    let b3 = false;
-    print!("{} {} {}",
-    &b1 as *const bool as usize,
-    &b2 as *const bool as usize,
-    &b3 as *const bool as usize);
+    // // --------- to overcome these limitations
+    // fn min(arr: &[i32, 8]) -> i32 {
+    fn min(arr: &[i32]) -> i32 {
+        // Let's assume 'start' is between 0 and 7,
+        // and 'count' is between 1 and 8 - start.
+        let mut minimum = arr[0];
+        for i in 1..arr.len() {
+            if arr[i] < minimum {
+                minimum = arr[i];
+            }
+        }
+        minimum
+    }
+    println!("{}", min(&[23, 17, 12, 16, 15, 28, 17, 30]));
+    print!("{}", min(&vec![55, 22, 33, 44]));
 }
