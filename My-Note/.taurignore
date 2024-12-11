@@ -1,0 +1,4 @@
+src-tauri/sqlite3.db
+src-tauri/sqlite3.db-shm
+src-tauri/sqlite3.db-wal
+src-tauri/key.txt

@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.w-full-95{
+    max-width: 90%;
+}
+.w-667{
+    width: 677px;
+}
